@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RedditService } from '../services/reddit.service';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-display-posts',
@@ -8,14 +9,33 @@ import { RedditService } from '../services/reddit.service';
 })
 export class DisplayPostsComponent implements OnInit {
   subredditPostList: any;
+  searchForm: FormGroup;
 
-  constructor(private redditService: RedditService) { }
+  constructor(private redditService: RedditService, private fb: FormBuilder) { 
+    this.initializeForm();
+  }
 
   ngOnInit() {
     this.redditService.getRedditPosts().subscribe((subredditData) => {
       this.subredditPostList = subredditData['data']['children'];
       console.log(subredditData['data']['children']);
     })
+  }
+  initializeForm(): void {
+    this.searchForm = this.fb.group({
+      searchTerms: new FormControl('', [Validators.required, this.whiteSpaceOnlyValidator])
+    });
+  }
+  public whiteSpaceOnlyValidator(control: FormControl) {
+    const isWhitespace = (control.value || '').trim().length === 0;
+    const isValid = !isWhitespace;
+    return isValid ? null : { 'whitespace': true };
+  }
+  
+  handleFormSubmit(): void {
+  }
+
+  handleClearForm(): void { 
   }
 
 }

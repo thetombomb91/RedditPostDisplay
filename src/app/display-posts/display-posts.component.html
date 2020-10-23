@@ -1,3 +1,33 @@
+<mat-card>
+    <h1>Subreddit Search</h1>
+    <form class="form-input" [formGroup]="searchForm">
+      <mat-form-field>
+        <input matInput placeholder="Subreddit Name" formControlName="searchTerms" />
+        <mat-error
+          *ngIf="
+            searchForm.controls.searchTerms.errors?.whitespace &&
+            (searchForm.controls.searchTerms.touched ||
+              searchForm.controls.searchTerms.dirty)
+          "
+        >
+          Search Cannot be Only Whitespace</mat-error
+        >
+      </mat-form-field>
+  
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="searchForm.invalid"
+        (click)="handleFormSubmit()"
+      >
+        Submit
+      </button>
+      <button mat-raised-button color="accent" (click)="handleClearForm()">
+        Clear
+      </button>
+    </form>
+  </mat-card>
+
 <div *ngFor="let item of subredditPostList">
     <li>{{item.data.author}}</li>
 </div>
