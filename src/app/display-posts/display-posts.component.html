@@ -1,1 +1,6 @@
-<p>display-posts works!</p>
+<div *ngFor="let item of subredditPostList">
+    <li>{{item.data.author}}</li>
+</div>
+
+
+<p>{{subredditPostList}}</p>

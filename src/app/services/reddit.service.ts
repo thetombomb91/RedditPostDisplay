@@ -1,9 +1,16 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RedditService {
 
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
+
+  getRedditPosts(): Observable<any> {
+    return this.httpClient.get('https://www.reddit.com/r/funny/new/.json?limit=5');
+  }
 }

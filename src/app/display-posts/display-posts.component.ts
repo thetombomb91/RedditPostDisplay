@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RedditService } from '../services/reddit.service';
 
 @Component({
   selector: 'app-display-posts',
@@ -6,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./display-posts.component.scss']
 })
 export class DisplayPostsComponent implements OnInit {
+  subredditPostList: any;
 
-  constructor() { }
+  constructor(private redditService: RedditService) { }
 
   ngOnInit() {
+    this.redditService.getRedditPosts().subscribe((subredditData) => {
+      this.subredditPostList = subredditData['data']['children'];
+      console.log(subredditData['data']['children']);
+    })
   }
 
 }
