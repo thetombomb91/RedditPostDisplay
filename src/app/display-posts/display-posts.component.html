@@ -1,36 +1,53 @@
 <mat-card>
-    <h1>Subreddit Search</h1>
-    <form class="form-input" [formGroup]="searchForm">
-      <mat-form-field>
-        <input matInput placeholder="Subreddit Name" formControlName="searchTerms" />
-        <mat-error
-          *ngIf="
-            searchForm.controls.searchTerms.errors?.whitespace &&
-            (searchForm.controls.searchTerms.touched ||
-              searchForm.controls.searchTerms.dirty)
-          "
-        >
-          Search Cannot be Only Whitespace</mat-error
-        >
-      </mat-form-field>
-  
-      <button
-        mat-raised-button
-        color="primary"
-        [disabled]="searchForm.invalid"
-        (click)="handleFormSubmit()"
+  <h1>Subreddit Search</h1>
+  <form class="form-input" [formGroup]="searchForm">
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Subreddit Name"
+        formControlName="searchTerms"
+      />
+      <mat-error
+        *ngIf="
+          searchForm.controls.searchTerms.errors?.whitespace &&
+          (searchForm.controls.searchTerms.touched ||
+            searchForm.controls.searchTerms.dirty)
+        "
       >
-        Submit
-      </button>
-      <button mat-raised-button color="accent" (click)="handleClearForm()">
-        Clear
-      </button>
-    </form>
-  </mat-card>
+        Search Cannot be Only Whitespace</mat-error
+      >
+    </mat-form-field>
+
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="searchForm.invalid"
+      (click)="handleFormSubmit()"
+    >
+      Submit
+    </button>
+    <button mat-raised-button color="accent" (click)="handleClearForm()">
+      Clear
+    </button>
+  </form>
+</mat-card>
 
 <div *ngFor="let item of subredditPostList">
-    <li>{{item.data.author}}</li>
+  <mat-card (click)="navigateToRedditPost(item.data.permalink)">
+    <mat-card-header>
+      <mat-card-title>
+        <div>{{ item.data.title }}</div>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="user-card-content">
+      <div><img src="{{ item.data.thumbnail }}" height="100" width="100" /></div>
+      <div>
+      <div><b>Author: </b>{{ item.data.author }}</div>
+      <div><b>Upvote Ratio: </b>{{ item.data.upvote_ratio }}</div>
+      <div><b>Link: </b>{{ item.data.permalink }}</div>
+    </div>
+    </mat-card-content>
+  </mat-card>
 </div>
 
-
-<p>{{subredditPostList}}</p>
+<p>{{ subredditPostList }}</p>

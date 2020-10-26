@@ -13,4 +13,8 @@ export class RedditService {
   getRedditPosts(): Observable<any> {
     return this.httpClient.get('https://www.reddit.com/r/funny/new/.json?limit=5');
   }
+
+  getRedditPostsBySubreddit(searchTerm: string): Observable<any> {
+    return this.httpClient.get('https://www.reddit.com/r/funny/new/.json?limit=5');
+  }
 }
