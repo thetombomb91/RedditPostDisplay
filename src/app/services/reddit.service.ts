@@ -17,7 +17,7 @@ export class RedditService {
 
   getRedditPostsBySubreddit(searchTerm: string): Observable<any> {
     return this.httpClient
-      .get(`https://www.reddit.com/r/${ searchTerm }/new/.json?limit=10`)
+      .get(`https://www.reddit.com/r/${ searchTerm }/new/.json?limit=100`)
       .pipe(catchError(this.handleError));
   }
 

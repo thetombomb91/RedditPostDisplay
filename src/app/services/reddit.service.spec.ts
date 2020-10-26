@@ -29,7 +29,7 @@ describe('RedditService', () => {
   it('getRedditPostsBySubreddit should call GET with search terms', () => {
     service.getRedditPostsBySubreddit("SearchTerm").subscribe();
 
-    const req = httpMock.expectOne('https://www.reddit.com/r/SearchTerm/new/.json?limit=10');
+    const req = httpMock.expectOne('https://www.reddit.com/r/SearchTerm/new/.json?limit=100');
     expect(req.request.method).toBe('GET');
   });
 

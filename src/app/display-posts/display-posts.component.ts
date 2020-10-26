@@ -15,6 +15,7 @@ import {
 export class DisplayPostsComponent implements OnInit {
   subredditPostList: any;
   searchForm: FormGroup;
+  searchInProgress: boolean;
 
   constructor(private redditService: RedditService, private fb: FormBuilder) {
     this.initializeForm();
@@ -42,12 +43,14 @@ export class DisplayPostsComponent implements OnInit {
   }
 
   handleFormSubmit(): void {
-    console.log(this.searchForm.controls.searchTerms.value);
+    this.searchInProgress = true;
+    this.subredditPostList = [];
     this.redditService
       .getRedditPostsBySubreddit(this.searchForm.controls.searchTerms.value)
       .subscribe((subredditData) => {
         this.subredditPostList = subredditData["data"]["children"];
         console.log(subredditData["data"]["children"]);
+        this.searchInProgress = false;
       });
   }
 

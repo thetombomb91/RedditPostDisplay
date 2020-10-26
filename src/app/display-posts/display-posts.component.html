@@ -32,6 +32,8 @@
   </form>
 </mat-card>
 
+<mat-spinner *ngIf="searchInProgress"></mat-spinner>
+
 <div *ngFor="let item of subredditPostList">
   <mat-card (click)="navigateToRedditPost(item.data.permalink)">
     <mat-card-header>
@@ -40,14 +42,16 @@
       </mat-card-title>
     </mat-card-header>
     <mat-card-content class="user-card-content">
-      <div><img src="{{ item.data.thumbnail }}" height="100" width="100" /></div>
+      <div
+        *ngIf="item.data.thumbnail !== 'self' && item.data.thumbnail !== 'nsfw'"
+      >
+        <img src="{{ item.data.thumbnail }}" height="100" width="100" />
+      </div>
       <div>
-      <div><b>Author: </b>{{ item.data.author }}</div>
-      <div><b>Upvote Ratio: </b>{{ item.data.upvote_ratio }}</div>
-      <div><b>Link: </b>{{ item.data.permalink }}</div>
-    </div>
+        <div><b>Author: </b>{{ item.data.author }}</div>
+        <div><b>Upvote Ratio: </b>{{ item.data.upvote_ratio }}</div>
+        <div><b>Link: </b>{{ item.data.permalink }}</div>
+      </div>
     </mat-card-content>
   </mat-card>
 </div>
-
-<p>{{ subredditPostList }}</p>
