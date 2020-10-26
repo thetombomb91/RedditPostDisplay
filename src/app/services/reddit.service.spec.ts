@@ -20,9 +20,17 @@ describe('RedditService', () => {
     service = injector.get(RedditService);
     httpMock = injector.get(HttpTestingController);
   });
-  
+
   it('should be created', () => {
     const service: RedditService = TestBed.get(RedditService);
     expect(service).toBeTruthy();
   });
+
+  it('getRedditPostsBySubreddit should call GET with search terms', () => {
+    service.getRedditPostsBySubreddit("SearchTerm").subscribe();
+
+    const req = httpMock.expectOne('https://www.reddit.com/r/SearchTerm/new/.json?limit=10');
+    expect(req.request.method).toBe('GET');
+  });
+
 });

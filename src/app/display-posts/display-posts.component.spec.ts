@@ -35,4 +35,42 @@ describe('DisplayPostsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe("search form", () => {
+    it("should be invalid when search terms are only whitespace", () => {
+      component.searchForm.controls.searchTerms.setValue("     ");
+
+      expect(component.searchForm.invalid).toBeTruthy(
+        "Search form should be invalid"
+      );
+      expect(
+        component.searchForm.controls.searchTerms.hasError("whitespace")
+      ).toBeTruthy("Search Term control should have the whitespace error");
+    });
+
+    
+    it("should be invalid when there are no search terms", () => {
+      component.searchForm.controls.searchTerms.setValue("");
+
+      expect(component.searchForm.invalid).toBeTruthy(
+        "Search form should be invalid"
+      );
+    });
+
+    const testCases = [
+      { searchTerm: "angular" },
+      { searchTerm: " Angular" },
+      { searchTerm: "Angular     " },
+      { searchTerm: "   angular   " },
+    ];
+    testCases.forEach((tc) => {
+      it("should be valid when there are search terms", () => {
+        component.searchForm.controls.searchTerms.setValue(tc.searchTerm);
+
+        expect(component.searchForm.valid).toBeTruthy(
+          `Search form should be valid with search term ${tc.searchTerm}`
+        );
+      });
+    });
+  });
 });
