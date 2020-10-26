@@ -6,8 +6,6 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RedditService } from '../services/reddit.service';
-import { HttpClient } from '@angular/common/http';
-import { ThrowStmt } from '@angular/compiler';
 
 describe('DisplayPostsComponent', () => {
   let component: DisplayPostsComponent;
