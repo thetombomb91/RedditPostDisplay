@@ -34,7 +34,7 @@
 
 <mat-spinner *ngIf="searchInProgress"></mat-spinner>
 
-<div *ngFor="let item of subredditPostList">
+<div *ngFor="let item of subredditPostListTen">
   <mat-card (click)="navigateToRedditPost(item.data.permalink)">
     <mat-card-header>
       <mat-card-title>
@@ -54,4 +54,9 @@
       </div>
     </mat-card-content>
   </mat-card>
+</div>
+
+<div class="page-buttons">
+  <button mat-raised-button color="primary" (click)="goToPreviousPage()" [disabled]="currentLastIndex == 10">Prev</button>
+  <button mat-raised-button color="primary" (click)="goToNextPage()">Next</button>
 </div>

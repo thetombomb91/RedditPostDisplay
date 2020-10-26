@@ -11,7 +11,7 @@ export class RedditService {
 
   getRedditPosts(): Observable<any> {
     return this.httpClient.get(
-      "https://www.reddit.com/r/funny/new/.json?limit=10"
+      "https://www.reddit.com/r/funny/new/.json?limit=100"
     );
   }
 

@@ -7,6 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RedditService } from '../services/reddit.service';
 import { HttpClient } from '@angular/common/http';
+import { ThrowStmt } from '@angular/compiler';
 
 describe('DisplayPostsComponent', () => {
   let component: DisplayPostsComponent;
@@ -72,5 +73,41 @@ describe('DisplayPostsComponent', () => {
         );
       });
     });
+  });
+
+  describe('page next and previous', () => {
+    it('should increase current page index by 10 on goToNextPage', () => {
+      const fakeArrayData = [1,2,3,4,5,6,7,8,9,10];
+      component.currentLastIndex = 0;
+      component.subredditPostListFull = fakeArrayData
+
+      component.goToNextPage();
+
+      expect(component.currentLastIndex).toBe(10);
+    });
+
+    it('should decrease current page index by 10 on goToPreviousPage', () => {
+      const fakeArrayData = [1,2,3,4,5,6,7,8,9,10];
+      component.currentLastIndex = 30;
+      component.subredditPostListFull = fakeArrayData
+
+      component.goToPreviousPage();
+
+      expect(component.currentLastIndex).toBe(20);
+    });
+  });
+
+  describe('clear form', () => {
+    it('should empty out both full and partial item arrays', () => {
+      const fakeDataArray = [1,2,3];
+      component.subredditPostListFull = fakeDataArray;
+      component.subredditPostListTen = fakeDataArray;
+
+      component.handleClearForm();
+
+      expect(component.subredditPostListFull).toEqual([]);
+      expect(component.subredditPostListTen).toEqual([]);
+    });
+
   });
 });
