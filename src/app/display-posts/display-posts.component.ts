@@ -28,13 +28,19 @@ export class DisplayPostsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.redditService.getRedditPosts().subscribe((subredditData) => {
-      this.subredditPostListFull = subredditData["data"]["children"];
-      this.subredditPostListTen = this.subredditPostListFull.slice(0, 10);
-      this.currentLastIndex = 10;
+    this.searchForm.controls.searchTerms.setValue('funny');
+    this.redditService
+      .getRedditPostsBySubreddit(this.searchForm.controls.searchTerms.value)
+      .subscribe((subredditData) => {
+        this.populatePageWithRedditData(subredditData);
+      });
+  }
 
-      console.log(subredditData["data"]["children"]);
-    });
+  private populatePageWithRedditData(subredditData: any) {
+    this.subredditPostListFull = subredditData["data"]["children"];
+    this.subredditPostListTen = this.subredditPostListFull.slice(0, 10);
+    this.currentLastIndex = 10;
+    this.searchInProgress = false;
   }
 
   initializeForm(): void {
@@ -58,12 +64,7 @@ export class DisplayPostsComponent implements OnInit {
     this.redditService
       .getRedditPostsBySubreddit(this.searchForm.controls.searchTerms.value)
       .subscribe((subredditData) => {
-        this.subredditPostListFull = subredditData["data"]["children"];
-        this.subredditPostListTen = this.subredditPostListFull.slice(0, 10);
-        this.currentLastIndex = 10;
-        this.searchInProgress = false;
-
-        console.log(subredditData["data"]["children"]);
+        this.populatePageWithRedditData(subredditData);
       });
   }
 
