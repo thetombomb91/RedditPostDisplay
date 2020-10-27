@@ -28,7 +28,7 @@ export class DisplayPostsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.searchForm.controls.searchTerms.setValue('funny');
+    this.searchForm.controls.searchTerms.setValue("funny");
     this.redditService
       .getRedditPostsBySubreddit(this.searchForm.controls.searchTerms.value)
       .subscribe((subredditData) => {
@@ -37,6 +37,11 @@ export class DisplayPostsComponent implements OnInit {
   }
 
   private populatePageWithRedditData(subredditData: any) {
+    console.log("back data", subredditData);
+    if (subredditData.length === 0) {
+      this.searchInProgress = false;
+      return;
+    }
     this.subredditPostListFull = subredditData["data"]["children"];
     this.subredditPostListTen = this.subredditPostListFull.slice(0, 10);
     this.currentLastIndex = 10;
@@ -78,7 +83,7 @@ export class DisplayPostsComponent implements OnInit {
   }
 
   goToNextPage() {
-    if(this.currentLastIndex === this.maximumPostIndex) {
+    if (this.currentLastIndex === this.maximumPostIndex) {
       this.currentLastIndex = this.resetCurrentLastIndex;
     }
 
@@ -94,7 +99,7 @@ export class DisplayPostsComponent implements OnInit {
   goToPreviousPage() {
     this.subredditPostListTen = this.subredditPostListFull.slice(
       this.currentLastIndex - 20,
-      this.currentLastIndex - 10,
+      this.currentLastIndex - 10
     );
     this.currentLastIndex -= 10;
     console.log(this.currentLastIndex);

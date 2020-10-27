@@ -1,5 +1,5 @@
 <mat-card>
-  <h1>Subreddit Search: r/{{ searchForm.controls.searchTerms.value }}</h1>
+  <h1>Subreddit Search: r/{{searchForm.controls.searchTerms.value}}</h1>
   <form class="form-input" [formGroup]="searchForm">
     <mat-form-field>
       <input
@@ -43,11 +43,7 @@
     </mat-card-header>
     <mat-card-content class="user-card-content">
       <div
-        *ngIf="
-          item.data.thumbnail !== 'self' &&
-          item.data.thumbnail !== 'nsfw' &&
-          item.data.thumbnail !== ''
-        "
+        *ngIf="item.data.thumbnail !== 'self' && item.data.thumbnail !== 'nsfw' && item.data.thumbnail !== ''"
       >
         <img src="{{ item.data.thumbnail }}" height="100" width="100" />
       </div>
@@ -59,17 +55,12 @@
     </mat-card-content>
   </mat-card>
 </div>
-
-<div class="page-buttons">
-  <button
-    mat-raised-button
-    color="primary"
-    (click)="goToPreviousPage()"
-    [disabled]="currentLastIndex == 10"
+<div class="center">
+  <mat-label *ngIf="!searchInProgress && subredditPostListTen?.length == 0"
+    >Unable to retrieve results</mat-label
   >
-    Prev
-  </button>
-  <button mat-raised-button color="primary" (click)="goToNextPage()">
-    Next
-  </button>
+</div>
+<div class="page-buttons">
+  <button mat-raised-button color="primary" (click)="goToPreviousPage()" [disabled]="currentLastIndex == 10">Prev</button>
+  <button mat-raised-button color="primary" (click)="goToNextPage()">Next</button>
 </div>
