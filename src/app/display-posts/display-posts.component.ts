@@ -37,7 +37,6 @@ export class DisplayPostsComponent implements OnInit {
   }
 
   private populatePageWithRedditData(subredditData: any) {
-    console.log("back data", subredditData);
     if (subredditData.length === 0) {
       this.searchInProgress = false;
       return;

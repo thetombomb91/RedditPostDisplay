@@ -43,7 +43,7 @@
     </mat-card-header>
     <mat-card-content class="user-card-content">
       <div
-        *ngIf="item.data.thumbnail !== 'self' && item.data.thumbnail !== 'nsfw' && item.data.thumbnail !== ''"
+        *ngIf="item.data.thumbnail !== 'self' && item.data.thumbnail !== 'nsfw' && item.data.thumbnail !== '' && item.data.thumbnail !== 'default'"
       >
         <img src="{{ item.data.thumbnail }}" height="100" width="100" />
       </div>
